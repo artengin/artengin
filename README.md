@@ -1,6 +1,5 @@
 ## Hi 👋 My name is Artyom
-### I'm backend developer
-Continuously growing as a professional — I explore new technologies and approaches and apply them in practice to achieve better results.
+I’m a PHP developer with experience in creating web applications and server-side logic. I strive to write clean and efficient code, constantly learning new approaches and technologies.
 
 ### Skills 
 <p align="left">
