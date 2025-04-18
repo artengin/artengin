@@ -11,4 +11,10 @@ I’m a PHP developer with experience in creating web applications and server-si
 🎸 Playing the guitar is my passion and a way to unwind.  
 🛠 In my free time, I create leather goods. I enjoy turning ideas into tangible items.
 
-![PRs](https://img.shields.io/badge/Merged_PRs-9-blue)
+![PRs](https://img.shields.io/badge/Merged_PRs-2-blue)
+
+## 📊 Код-статистика
+
+Данные собираются автоматически...
+
+*Последнее обновление: никогда*
