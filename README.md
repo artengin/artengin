@@ -1,5 +1,7 @@
 ## Hi 👋 My name is Artyom
-I’m a PHP developer with experience in creating web applications and server-side logic. I strive to write clean and efficient code, constantly learning new approaches and technologies.
+I’m a PHP developer with experience in creating web applications and server-side logic. I strive to write clean and efficient code, constantly learning new approaches and technologies.  
+
+![PRs](https://img.shields.io/badge/Merged_PRs-11-blue)
 
 ### Skills 
 <p align="left">
@@ -10,7 +12,3 @@ I’m a PHP developer with experience in creating web applications and server-si
 📚 Reading books is an important part of my life.  
 🎸 Playing the guitar is my passion and a way to unwind.  
 🛠 In my free time, I create leather goods. I enjoy turning ideas into tangible items.
-
-![PRs](https://img.shields.io/badge/Merged_PRs-9-blue)
-
-<a href="https://github.com/artengin" align="left"><img src="https://github-readme-stats.vercel.app/api/top-langs/?username=artengin&langs_count=10&title_color=0891b2&text_color=ffffff&icon_color=0891b2&bg_color=1c1917&hide_border=true&locale=en&custom_title=Top%20%Languages" alt="Top Languages" /></a>
