@@ -1,150 +1,151 @@
 import requests
 import os
 import subprocess
+import json
+import re
 from collections import defaultdict
 from datetime import datetime
 
-class CodeStatsAnalyzer:
+class CodeLineCounter:
     def __init__(self):
         self.username = "artengin"
         self.token = os.getenv('GITHUB_TOKEN', '')
         self.headers = {'Authorization': f'token {self.token}'} if self.token else {}
-        self.temp_clone_dir = "temp_repos"
+        self.clone_dir = "temp_repos"
+        self.tokei_cmd = ["tokei", "-f", "-o", "json"]
 
-    def get_all_repos(self):
-        """Получает список нефоркнутых репозиториев"""
+    def get_repos(self):
+        """Получает список репозиториев (исключая форки)"""
         repos = []
         page = 1
         
         while True:
             url = f"https://api.github.com/users/{self.username}/repos?page={page}&per_page=100"
-            response = requests.get(url, headers=self.headers)
-            response.raise_for_status()
-            data = response.json()
-            
-            if not data:
+            try:
+                response = requests.get(url, headers=self.headers, timeout=10)
+                response.raise_for_status()
+                data = response.json()
+                
+                if not data:
+                    break
+                    
+                repos.extend(repo['clone_url'] for repo in data if not repo['fork'])
+                page += 1
+                
+            except Exception as e:
+                print(f"⚠️ Ошибка получения репозиториев: {e}")
                 break
                 
-            repos.extend(repo['clone_url'] for repo in data if not repo['fork'])
-            page += 1
-            
         return repos
 
-    def count_lines(self, repo_url):
-        """Клонирует репозиторий и считает строки по языкам"""
+    def analyze_repo(self, repo_url):
+        """Анализирует репозиторий и возвращает статистику строк"""
+        repo_name = repo_url.split('/')[-1].replace('.git', '')
+        clone_path = os.path.join(self.clone_dir, repo_name)
+        stats = defaultdict(int)
+        
         try:
             # Клонируем репозиторий
-            repo_name = repo_url.split('/')[-1].replace('.git', '')
-            clone_path = os.path.join(self.temp_clone_dir, repo_name)
-            
             subprocess.run(
-                ['git', 'clone', '--depth', '1', repo_url, clone_path],
+                ["git", "clone", "--depth", "1", repo_url, clone_path],
                 check=True,
                 capture_output=True
             )
             
-            # Используем tokei для анализа строк кода
+            # Запускаем tokei
             result = subprocess.run(
-                ['tokei', '-f', '-o', 'json', clone_path],
+                self.tokei_cmd + [clone_path],
                 capture_output=True,
                 text=True
             )
             
-            # Удаляем временный репозиторий
-            subprocess.run(['rm', '-rf', clone_path])
-            
-            return result.stdout
-            
-        except subprocess.CalledProcessError as e:
-            print(f"⚠️ Ошибка при анализе {repo_url}: {e.stderr}")
-            return None
-
-    def process_tokei_output(self, json_data):
-        """Парсит вывод tokei и возвращает статистику по языкам"""
-        try:
-            import json
-            data = json.loads(json_data)
-            stats = defaultdict(int)
-            
-            for lang, details in data['report'].items():
-                if lang != 'Total':
-                    stats[lang] = details['code']
-                    
-            return dict(stats)
+            if result.returncode == 0:
+                data = json.loads(result.stdout)
+                for lang, metrics in data.items():
+                    if isinstance(metrics, dict) and 'code' in metrics:
+                        stats[lang] += metrics['code']
             
         except Exception as e:
-            print(f"⚠️ Ошибка парсинга tokei: {e}")
-            return {}
+            print(f"⚠️ Ошибка анализа {repo_name}: {e}")
+        finally:
+            # Очищаем
+            subprocess.run(["rm", "-rf", clone_path], capture_output=True)
+            
+        return stats
 
-    def generate_stats_table(self, language_stats):
-        """Генерирует Markdown таблицу"""
-        total_lines = sum(language_stats.values())
-        table = "## 📊 Код-статистика (строки)\n\n"
-        table += "| Язык | Строк кода | Процент |\n"
-        table += "|------|-----------:|--------:|\n"
+    def generate_stats(self, language_stats):
+        """Генерирует Markdown с результатами"""
+        total = sum(language_stats.values())
+        if total == 0:
+            return "## 📊 Статистика строк кода\n\nНет данных\n"
+            
+        md = "## 📊 Статистика строк кода\n\n"
+        md += "| Язык | Строк кода | Доля |\n"
+        md += "|------|-----------:|-----:|\n"
         
         for lang, lines in sorted(language_stats.items(), key=lambda x: -x[1]):
-            percent = (lines / total_lines) * 100
-            table += f"| {lang} | {lines:,} | {percent:.1f}% |\n"
-        
-        table += f"\n**Всего строк кода:** {total_lines:,}\n"
-        table += f"\n*Последнее обновление: {datetime.now().strftime('%Y-%m-%d %H:%M')}*"
-        return table
+            percent = (lines / total) * 100
+            md += f"| {lang} | {lines:,} | {percent:.1f}% |\n"
+            
+        md += f"\n**Всего строк кода:** {total:,}\n"
+        md += f"\n*Обновлено: {datetime.now().strftime('%d.%m.%Y %H:%M')}*"
+        return md
 
-    def update_readme(self, stats_table):
+    def update_readme(self, stats_md):
         """Обновляет README.md"""
         try:
             with open("README.md", "r+", encoding='utf-8') as f:
                 content = f.read()
+                
+                # Ищем и заменяем существующую секцию
                 updated = re.sub(
-                    r'## 📊 Код-статистика.*?(?=^##|\Z)',
-                    stats_table,
+                    r'## 📊 Статистика строк кода.*?(?=^##|\Z)',
+                    stats_md,
                     content,
                     flags=re.DOTALL|re.MULTILINE
                 )
+                
+                # Если секция не найдена, добавляем в конец
+                if updated == content:
+                    updated = content.rstrip() + "\n\n" + stats_md
                 
                 f.seek(0)
                 f.write(updated)
                 f.truncate()
                 
         except Exception as e:
-            print(f"❌ Ошибка при записи README.md: {e}")
+            print(f"❌ Ошибка обновления README: {e}")
             raise
 
     def run(self):
         """Основной процесс"""
-        print("🔍 Начинаю анализ строк кода...")
-        
-        # Создаем временную директорию
-        os.makedirs(self.temp_clone_dir, exist_ok=True)
+        print("🔄 Сбор статистики строк кода...")
+        os.makedirs(self.clone_dir, exist_ok=True)
         
         try:
-            repos = self.get_all_repos()
+            repos = self.get_repos()
             if not repos:
-                print("ℹ️ Репозитории не найдены")
+                print("ℹ️ Нет репозиториев для анализа")
                 return False
                 
             print(f"📂 Найдено репозиториев: {len(repos)}")
-            language_stats = defaultdict(int)
+            total_stats = defaultdict(int)
             
-            for repo_url in repos:
-                print(f"🔎 Анализирую {repo_url}...")
-                tokei_output = self.count_lines(repo_url)
-                if tokei_output:
-                    stats = self.process_tokei_output(tokei_output)
-                    for lang, lines in stats.items():
-                        language_stats[lang] += lines
+            for repo in repos:
+                print(f"🔍 Анализ {repo.split('/')[-1]}...")
+                repo_stats = self.analyze_repo(repo)
+                for lang, lines in repo_stats.items():
+                    total_stats[lang] += lines
             
-            stats_table = self.generate_stats_table(language_stats)
-            self.update_readme(stats_table)
+            stats_md = self.generate_stats(total_stats)
+            self.update_readme(stats_md)
             print("✅ README.md успешно обновлён!")
             return True
             
         finally:
-            # Очищаем временные файлы
-            subprocess.run(['rm', '-rf', self.temp_clone_dir])
+            subprocess.run(["rm", "-rf", self.clone_dir], capture_output=True)
 
 if __name__ == "__main__":
-    analyzer = CodeStatsAnalyzer()
-    success = analyzer.run()
+    counter = CodeLineCounter()
+    success = counter.run()
     exit(0 if success else 1)

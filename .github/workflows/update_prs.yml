@@ -26,7 +26,10 @@ jobs:
         run: pip install requests
 
       - name: Install tokei
-        run: cargo install tokei
+        run: |
+          sudo apt-get install -y cargo
+          cargo install tokei
+          pip install requests
       
       - name: Update PR count
         run: python update_pr_count.py
