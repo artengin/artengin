@@ -1,5 +1,6 @@
 import requests
 import os
+import re
 
 USERNAME = "artengin"
 URL = f"https://api.github.com/search/issues?q=is:pr+is:merged+author:{USERNAME}"
@@ -15,14 +16,17 @@ except FileNotFoundError:
     print("Ошибка: Файл README.md не найден!")
     exit(1)
 
-target_string = "![PRs](https://img.shields.io/badge/Merged_PRs-\d+-blue)"
-if target_string not in readme:
-    print(f"Ошибка: Строка '{target_string}' не найдена в README.md!")
+target_pattern = re.compile(r'!\[PRs\]\(https://img\.shields\.io/badge/Merged_PRs-\d+-blue\)')
+
+if not target_pattern.search(readme):
+    print("Ошибка: Бейдж с PR не найден в README.md!")
+    print("Убедитесь, что в файле есть строка вида:")
+    print("![PRs](https://img.shields.io/badge/Merged_PRs-0-blue)")
     exit(1)
 
-updated_readme = readme.replace(
-    target_string,
-    f"![PRs](https://img.shields.io/badge/Merged_PRs-{count}-blue)"
+updated_readme = target_pattern.sub(
+    f"![PRs](https://img.shields.io/badge/Merged_PRs-{count}-blue)",
+    readme
 )
 
 with open("README.md", "w") as f:
