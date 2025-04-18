@@ -10,3 +10,5 @@ I’m a PHP developer with experience in creating web applications and server-si
 📚 Reading books is an important part of my life.  
 🎸 Playing the guitar is my passion and a way to unwind.  
 🛠 In my free time, I create leather goods. I enjoy turning ideas into tangible items.
+
+![Merged PRs](https://img.shields.io/badge/Merged_PRs-0-blue)
