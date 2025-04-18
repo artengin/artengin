@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -21,10 +21,12 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Run script
+      - name: Install dependencies and run script
         run: |
           pip install requests
           python update_pr_count.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check for changes
         id: check_changes
