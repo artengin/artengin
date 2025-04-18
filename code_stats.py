@@ -52,50 +52,41 @@ class CodeLineCounter:
         return repos
 
     def analyze_repo(self, repo_url):
-        """Анализирует репозиторий и возвращает статистику строк"""
-        repo_name = repo_url.split('/')[-1].replace('.git', '')
-        clone_path = os.path.join(self.clone_dir, repo_name)
-        stats = defaultdict(int)
+    """Анализирует репозиторий и возвращает статистику строк"""
+    repo_name = repo_url.split('/')[-1].replace('.git', '')
+    clone_path = os.path.join(self.clone_dir, repo_name)
+    stats = defaultdict(int)
+    
+    try:
+        # Клонируем репозиторий
+        subprocess.run(
+            ["git", "clone", "--depth", "1", repo_url, clone_path],
+            check=True,
+            capture_output=True
+        )
         
-        try:
-            # Клонируем репозиторий (только последние изменения)
-            clone_cmd = [
-                "git", "clone", 
-                "--depth", "1", 
-                "--single-branch",
-                repo_url, 
-                clone_path
-            ]
-            
-            subprocess.run(clone_cmd, check=True, capture_output=True, timeout=300)
-            
-            # Запускаем tokei для анализа кода
-            result = subprocess.run(
-                self.tokei_cmd + [clone_path],
-                capture_output=True,
-                text=True,
-                timeout=600
-            )
-            
-            if result.returncode == 0:
-                data = json.loads(result.stdout)
-                for lang, metrics in data.items():
-                    if (isinstance(metrics, dict) and 'code' in metrics:
-                        if (lang not in self.excluded_languages and 
-                            metrics['code'] >= 100 and
-                            not lang.startswith('__')):
-                            stats[lang] += metrics['code']
-            
-        except subprocess.TimeoutExpired:
-            print(f"⏳ Таймаут при анализе {repo_name}, пропускаем...")
-        except Exception as e:
-            print(f"⚠️ Ошибка анализа {repo_name}: {str(e)[:200]}...")
-        finally:
-            # Очищаем временные файлы
-            if os.path.exists(clone_path):
-                subprocess.run(["rm", "-rf", clone_path], capture_output=True)
-            
-        return stats
+        # Запускаем tokei
+        result = subprocess.run(
+            self.tokei_cmd + [clone_path],
+            capture_output=True,
+            text=True
+        )
+        
+        if result.returncode == 0:
+            data = json.loads(result.stdout)
+            for lang, metrics in data.items():
+                if (isinstance(metrics, dict) and 'code' in metrics and \
+                   lang not in self.excluded_languages and \
+                   metrics['code'] >= 100):  # Фильтр по количеству строк
+                    stats[lang] += metrics['code']
+    
+    except Exception as e:
+        print(f"⚠️ Ошибка анализа {repo_name}: {e}")
+    finally:
+        # Очищаем
+        subprocess.run(["rm", "-rf", clone_path], capture_output=True)
+        
+    return stats
 
     def generate_stats(self, language_stats):
         """Генерирует Markdown с результатами"""
