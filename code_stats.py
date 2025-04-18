@@ -16,28 +16,36 @@ class CodeLineCounter:
         # Языки, которые нужно исключить из отчета
         self.excluded_languages = {
             'Total', 'Makefile', 'YAML', 'Dockerfile', 
-            'SQL', 'SVG', 'Markdown', 'Plain Text', 'XML'
+            'SQL', 'SVG', 'Markdown', 'Plain Text', 'XML', 'JSON'
         }
 
     def get_repos(self):
-        """Получает список репозиториев (исключая форки)"""
+        """Получает список репозиториев, где пользователь является автором"""
         repos = []
         page = 1
         
         while True:
-            url = f"https://api.github.com/users/{self.username}/repos?page={page}&per_page=100"
+            url = f"https://api.github.com/users/{self.username}/repos?page={page}&per_page=100&type=owner"
             try:
-                response = requests.get(url, headers=self.headers, timeout=10)
+                response = requests.get(url, headers=self.headers, timeout=15)
                 response.raise_for_status()
                 data = response.json()
                 
                 if not data:
                     break
                     
-                repos.extend(repo['clone_url'] for repo in data if not repo['fork'])
+                for repo in data:
+                    # Проверяем, что пользователь является владельцем (не форк или не организация)
+                    if repo['owner']['login'] == self.username and not repo['fork']:
+                        repos.append(repo['clone_url'])
+                
+                # Проверяем, есть ли еще страницы
+                if 'next' not in response.links:
+                    break
+                    
                 page += 1
                 
-            except Exception as e:
+            except requests.exceptions.RequestException as e:
                 print(f"⚠️ Ошибка получения репозиториев: {e}")
                 break
                 
@@ -50,33 +58,42 @@ class CodeLineCounter:
         stats = defaultdict(int)
         
         try:
-            # Клонируем репозиторий
-            subprocess.run(
-                ["git", "clone", "--depth", "1", repo_url, clone_path],
-                check=True,
-                capture_output=True
-            )
+            # Клонируем репозиторий (только последние изменения)
+            clone_cmd = [
+                "git", "clone", 
+                "--depth", "1", 
+                "--single-branch",
+                repo_url, 
+                clone_path
+            ]
             
-            # Запускаем tokei
+            subprocess.run(clone_cmd, check=True, capture_output=True, timeout=300)
+            
+            # Запускаем tokei для анализа кода
             result = subprocess.run(
                 self.tokei_cmd + [clone_path],
                 capture_output=True,
-                text=True
+                text=True,
+                timeout=600
             )
             
             if result.returncode == 0:
                 data = json.loads(result.stdout)
                 for lang, metrics in data.items():
-                    if (isinstance(metrics, dict) and 'code' in metrics and 
-                        lang not in self.excluded_languages and
-                        metrics['code'] >= 100):  # Фильтр по количеству строк
-                        stats[lang] += metrics['code']
+                    if (isinstance(metrics, dict) and 'code' in metrics:
+                        if (lang not in self.excluded_languages and 
+                            metrics['code'] >= 100 and
+                            not lang.startswith('__')):
+                            stats[lang] += metrics['code']
             
+        except subprocess.TimeoutExpired:
+            print(f"⏳ Таймаут при анализе {repo_name}, пропускаем...")
         except Exception as e:
-            print(f"⚠️ Ошибка анализа {repo_name}: {e}")
+            print(f"⚠️ Ошибка анализа {repo_name}: {str(e)[:200]}...")
         finally:
-            # Очищаем
-            subprocess.run(["rm", "-rf", clone_path], capture_output=True)
+            # Очищаем временные файлы
+            if os.path.exists(clone_path):
+                subprocess.run(["rm", "-rf", clone_path], capture_output=True)
             
         return stats
 
@@ -86,7 +103,7 @@ class CodeLineCounter:
         if total == 0:
             return "## 📊 Статистика строк кода\n\nНет данных, соответствующих критериям\n"
             
-        md = "## 📊 Статистика строк кода\n\n"
+        md = "## 📊 Статистика строк кода (только мои репозитории)\n\n"
         md += "| Язык | Строк кода | Доля |\n"
         md += "|------|-----------:|-----:|\n"
         
@@ -96,6 +113,8 @@ class CodeLineCounter:
             
         md += f"\n**Всего строк кода:** {total:,}\n"
         md += f"\n*Обновлено: {datetime.now().strftime('%d.%m.%Y %H:%M')}*"
+        md += "\n\n*Примечание: анализируются только репозитории, где я являюсь автором"
+        md += ", исключены форки и служебные файлы*"
         return md
 
     def update_readme(self, stats_md):
@@ -105,17 +124,18 @@ class CodeLineCounter:
                 content = f.read()
                 
                 # Ищем и заменяем существующую секцию
-                updated = re.sub(
+                pattern = re.compile(
                     r'## 📊 Статистика строк кода.*?(?=^##|\Z)',
-                    stats_md,
-                    content,
-                    flags=re.DOTALL|re.MULTILINE
+                    re.DOTALL|re.MULTILINE
                 )
+                
+                updated = pattern.sub(stats_md, content)
                 
                 # Если секция не найдена, добавляем в конец
                 if updated == content:
                     updated = content.rstrip() + "\n\n" + stats_md
                 
+                # Перезаписываем файл
                 f.seek(0)
                 f.write(updated)
                 f.truncate()
@@ -139,10 +159,16 @@ class CodeLineCounter:
             total_stats = defaultdict(int)
             
             for repo in repos:
-                print(f"🔍 Анализ {repo.split('/')[-1]}...")
+                repo_name = repo.split('/')[-1]
+                print(f"🔍 Анализ {repo_name}...", end=' ', flush=True)
                 repo_stats = self.analyze_repo(repo)
-                for lang, lines in repo_stats.items():
-                    total_stats[lang] += lines
+                
+                if repo_stats:
+                    print(f"найдено {sum(repo_stats.values()):,} строк")
+                    for lang, lines in repo_stats.items():
+                        total_stats[lang] += lines
+                else:
+                    print("пропуск (нет данных)")
             
             stats_md = self.generate_stats(total_stats)
             self.update_readme(stats_md)
@@ -150,7 +176,8 @@ class CodeLineCounter:
             return True
             
         finally:
-            subprocess.run(["rm", "-rf", self.clone_dir], capture_output=True)
+            if os.path.exists(self.clone_dir):
+                subprocess.run(["rm", "-rf", self.clone_dir], capture_output=True)
 
 if __name__ == "__main__":
     counter = CodeLineCounter()
