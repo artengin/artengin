@@ -2,9 +2,9 @@ name: Update PR Count
 
 on:
   schedule:
-    - cron: "0 0 * * *"
-  workflow_dispatch:
-    
+    - cron: "0 0 * * *"  # Каждый день в 00:00 UTC
+  workflow_dispatch:      # Ручной запуск
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -17,8 +17,6 @@ jobs:
           python-version: "3.10"
 
       - name: Run script
-        env:
-          GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}  # Можно задать в Secrets
         run: |
           pip install requests
           python update_pr_count.py
