@@ -20,82 +20,96 @@ class CodeLineCounter:
         }
 
     def get_repos(self):
-        """Получает список репозиториев, где пользователь является автором"""
-        repos = []
-        page = 1
-        
-        while True:
-            url = f"https://api.github.com/users/{self.username}/repos?page={page}&per_page=100&type=owner"
-            try:
-                response = requests.get(url, headers=self.headers, timeout=15)
-                response.raise_for_status()
-                data = response.json()
-                
-                if not data:
-                    break
-                    
-                for repo in data:
-                    # Проверяем, что пользователь является владельцем (не форк или не организация)
-                    if repo['owner']['login'] == self.username and not repo['fork']:
-                        repos.append(repo['clone_url'])
-                
-                # Проверяем, есть ли еще страницы
-                if 'next' not in response.links:
-                    break
-                    
-                page += 1
-                
-            except requests.exceptions.RequestException as e:
-                print(f"⚠️ Ошибка получения репозиториев: {e}")
+    """Получает список всех репозиториев (включая приватные)"""
+    repos = []
+    page = 1
+    
+    while True:
+        # Используем /user/repos вместо /users/{username}/repos
+        url = f"https://api.github.com/user/repos?page={page}&per_page=100&affiliation=owner"
+        try:
+            response = requests.get(
+                url,
+                headers=self.headers,
+                timeout=15
+            )
+            response.raise_for_status()
+            data = response.json()
+            
+            if not data:
                 break
                 
-        return repos
+            for repo in data:
+                # Берем все репозитории, где пользователь является владельцем
+                if repo['owner']['login'] == self.username:
+                    repos.append({
+                        'clone_url': repo['clone_url'],
+                        'private': repo['private']
+                    })
+            
+            # Проверяем, есть ли еще страницы
+            if 'next' not in response.links:
+                break
+                
+            page += 1
+            
+        except requests.exceptions.RequestException as e:
+            print(f"⚠️ Ошибка получения репозиториев: {e}")
+            break
+                
+    return repos
 
-    def analyze_repo(self, repo_url):
-        """Анализирует репозиторий и возвращает статистику строк"""
-        repo_name = repo_url.split('/')[-1].replace('.git', '')
-        clone_path = os.path.join(self.clone_dir, repo_name)
-        stats = defaultdict(int)
-        
-        try:
-            # Клонируем репозиторий (только последние изменения)
-            clone_cmd = [
-                "git", "clone", 
-                "--depth", "1", 
-                "--single-branch",
-                repo_url, 
-                clone_path
-            ]
-            
-            subprocess.run(clone_cmd, check=True, capture_output=True, timeout=300)
-            
-            # Запускаем tokei для анализа кода
-            result = subprocess.run(
-                self.tokei_cmd + [clone_path],
-                capture_output=True,
-                text=True,
-                timeout=600
+def analyze_repo(self, repo_info):
+    """Анализирует репозиторий (публичный или приватный)"""
+    repo_url = repo_info['clone_url']
+    is_private = repo_info['private']
+    repo_name = repo_url.split('/')[-1].replace('.git', '')
+    clone_path = os.path.join(self.clone_dir, repo_name)
+    stats = defaultdict(int)
+    
+    try:
+        # Формируем URL для клонирования с токеном (для приватных репозиториев)
+        auth_url = repo_url
+        if is_private and self.token:
+            auth_url = repo_url.replace(
+                'https://github.com/',
+                f'https://{self.username}:{self.token}@github.com/'
             )
-            
-            if result.returncode == 0:
-                data = json.loads(result.stdout)
-                for lang, metrics in data.items():
-                    if (isinstance(metrics, dict) and 'code' in metrics):
-                        if (lang not in self.excluded_languages and 
-                            metrics['code'] >= 100 and
-                            not lang.startswith('__')):
-                            stats[lang] += metrics['code']
-            
-        except subprocess.TimeoutExpired:
-            print(f"⏳ Таймаут при анализе {repo_name}, пропускаем...")
-        except Exception as e:
-            print(f"⚠️ Ошибка анализа {repo_name}: {str(e)[:200]}...")
-        finally:
-            # Очищаем временные файлы
-            if os.path.exists(clone_path):
-                subprocess.run(["rm", "-rf", clone_path], capture_output=True)
-            
-        return stats
+        
+        # Клонируем репозиторий
+        subprocess.run(
+            ["git", "clone", "--depth", "1", auth_url, clone_path],
+            check=True,
+            capture_output=True,
+            timeout=300
+        )
+        
+        # Остальной код анализа остается без изменений
+        result = subprocess.run(
+            self.tokei_cmd + [clone_path],
+            capture_output=True,
+            text=True,
+            timeout=600
+        )
+        
+        if result.returncode == 0:
+            data = json.loads(result.stdout)
+            for lang, metrics in data.items():
+                if (isinstance(metrics, dict) and \
+                   'code' in metrics and \
+                   lang not in self.excluded_languages and \
+                   metrics['code'] >= 100):
+                    stats[lang] += metrics['code']
+    
+    except subprocess.TimeoutExpired:
+        print(f"⏳ Таймаут при анализе {repo_name}, пропускаем...")
+    except Exception as e:
+        print(f"⚠️ Ошибка анализа {repo_name}: {str(e)[:200]}...")
+    finally:
+        if os.path.exists(clone_path):
+            subprocess.run(["rm", "-rf", clone_path], capture_output=True)
+        
+    return stats
 
     def generate_stats(self, language_stats):
         """Генерирует Markdown с результатами"""
