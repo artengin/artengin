@@ -3,9 +3,15 @@ import os
 import re
 
 USERNAME = "artengin"
+TOKEN = os.getenv("GITHUB_TOKEN")
 URL = f"https://api.github.com/search/issues?q=is:pr+is:merged+author:{USERNAME}"
 
-response = requests.get(URL).json()
+headers = {
+    "Authorization": f"token {TOKEN}",
+    "Accept": "application/vnd.github.v3+json"
+}
+
+response = requests.get(URL, headers=headers).json()
 count = response.get("total_count", 0)
 
 try:
