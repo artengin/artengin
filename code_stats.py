@@ -13,6 +13,11 @@ class CodeLineCounter:
         self.headers = {'Authorization': f'token {self.token}'} if self.token else {}
         self.clone_dir = "temp_repos"
         self.tokei_cmd = ["tokei", "-f", "-o", "json"]
+        # Языки, которые нужно исключить из отчета
+        self.excluded_languages = {
+            'Total', 'Makefile', 'YAML', 'Dockerfile', 
+            'SQL', 'SVG', 'Markdown', 'Plain Text', 'XML'
+        }
 
     def get_repos(self):
         """Получает список репозиториев (исключая форки)"""
@@ -62,7 +67,9 @@ class CodeLineCounter:
             if result.returncode == 0:
                 data = json.loads(result.stdout)
                 for lang, metrics in data.items():
-                    if isinstance(metrics, dict) and 'code' in metrics:
+                    if (isinstance(metrics, dict) and 'code' in metrics and 
+                        lang not in self.excluded_languages and
+                        metrics['code'] >= 100):  # Фильтр по количеству строк
                         stats[lang] += metrics['code']
             
         except Exception as e:
@@ -77,7 +84,7 @@ class CodeLineCounter:
         """Генерирует Markdown с результатами"""
         total = sum(language_stats.values())
         if total == 0:
-            return "## 📊 Статистика строк кода\n\nНет данных\n"
+            return "## 📊 Статистика строк кода\n\nНет данных, соответствующих критериям\n"
             
         md = "## 📊 Статистика строк кода\n\n"
         md += "| Язык | Строк кода | Доля |\n"
