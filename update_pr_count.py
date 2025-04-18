@@ -7,7 +7,6 @@ URL = f"https://api.github.com/search/issues?q=is:pr+is:merged+author:{USERNAME}
 response = requests.get(URL).json()
 count = response.get("total_count", 0)
 print(f"Найдено PR: {count}")
-print(f"Ответ API: {response}")
 
 try:
     with open("README.md", "r") as f:
@@ -16,7 +15,7 @@ except FileNotFoundError:
     print("Ошибка: Файл README.md не найден!")
     exit(1)
 
-target_string = "![PRs](https://img.shields.io/badge/Merged_PRs-0-blue)"
+target_string = "![PRs](https://img.shields.io/badge/Merged_PRs-\d+-blue)"
 if target_string not in readme:
     print(f"Ошибка: Строка '{target_string}' не найдена в README.md!")
     exit(1)
