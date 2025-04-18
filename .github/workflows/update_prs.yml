@@ -24,7 +24,10 @@ jobs:
 
       - name: Install dependencies
         run: pip install requests
-    
+
+      - name: Install tokei
+        run: cargo install tokei
+      
       - name: Update PR count
         run: python update_pr_count.py
 
