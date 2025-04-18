@@ -11,10 +11,34 @@ I’m a PHP developer with experience in creating web applications and server-si
 🎸 Playing the guitar is my passion and a way to unwind.  
 🛠 In my free time, I create leather goods. I enjoy turning ideas into tangible items.
 
-![PRs](https://img.shields.io/badge/Merged_PRs-9-blue)
+![PRs](https://img.shields.io/badge/Merged_PRs-11-blue)
 
 ## 📊 Код-статистика (строки)
 
 Данные собираются...
 
 *Последнее обновление: никогда*
+
+## 📊 Статистика строк кода
+
+| Язык | Строк кода | Доля |
+|------|-----------:|-----:|
+| Total | 14,938 | 50.0% |
+| PHP | 5,938 | 19.9% |
+| JSON | 3,878 | 13.0% |
+| JavaScript | 2,051 | 6.9% |
+| CSS | 1,640 | 5.5% |
+| HTML | 803 | 2.7% |
+| XML | 312 | 1.0% |
+| Python | 144 | 0.5% |
+| Makefile | 76 | 0.3% |
+| YAML | 55 | 0.2% |
+| Dockerfile | 26 | 0.1% |
+| SQL | 14 | 0.0% |
+| SVG | 1 | 0.0% |
+| Markdown | 0 | 0.0% |
+| Plain Text | 0 | 0.0% |
+
+**Всего строк кода:** 29,876
+
+*Обновлено: 18.04.2025 17:07*
