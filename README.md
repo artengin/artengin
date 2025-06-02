@@ -1,5 +1,5 @@
 ## Hi 👋 My name is Artyom
-I’m a PHP developer with experience in creating web applications and server-side logic. I strive to write clean and efficient code, constantly learning new approaches and technologies.  
+I’m a Backend developer with experience in creating web applications and server-side logic. I strive to write clean and efficient code, constantly learning new approaches and technologies.  
 
 ![PRs](https://img.shields.io/badge/Merged_PRs-20-blue)
 
