@@ -1,7 +1,27 @@
 ## Hi 👋 My name is Artyom
 I’m a Backend developer with experience in creating web applications and server-side logic. I strive to write clean and efficient code, constantly learning new approaches and technologies.  
 
-![PRs](https://img.shields.io/badge/Merged_PRs-28-blue)
+## My PRs <img src="./assets/pr-icon.png" height="20"/>  
+
+![PRs](https://img.shields.io/badge/Merged_PRs-28-blue)  
+
+### <img src="./assets/laravel-logo.png" height="30"/> laravel/framework
+- https://github.com/laravel/framework/pull/56498
+
+### <img src="./assets/laravel-logo.png" height="30"/> laravelsu/laravel.su
+- https://github.com/laravelsu/laravel.su/pull/285
+- https://github.com/laravelsu/laravel.su/pull/283  
+  ...  
+  *[See all PRs](https://github.com/laravelsu/laravel.su/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*
+
+### <img src="./assets/ronasit.png" height="30"/> RonasIT/laravel-entity-generator
+- https://github.com/RonasIT/laravel-entity-generator/pull/161
+
+### <img src="./assets/hexlet.png" height="30"/> Hexlet/hexlet-sicp
+- https://github.com/Hexlet/hexlet-sicp/pull/1664
+- https://github.com/Hexlet/hexlet-sicp/pull/1659  
+  ...  
+  *[See all PRs](https://github.com/Hexlet/hexlet-sicp/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*
 
 ### Skills 
 <p align="left">
