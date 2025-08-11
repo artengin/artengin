@@ -13,7 +13,9 @@ I’m a Backend developer with experience in creating web applications and serve
 - https://github.com/laravel/framework/pull/56498
 
 ### <img src="./assets/ronasit.png" height="20"/> RonasIT/laravel-entity-generator
-- https://github.com/RonasIT/laravel-entity-generator/pull/161
+- https://github.com/RonasIT/laravel-entity-generator/pull/169  
+  ...  
+  *[See all PRs](https://github.com/RonasIT/laravel-entity-generator/pulls?q=is:pr+author:artengin+is:closed)*
 
 ### <img src="./assets/hexlet.png" height="20"/> Hexlet/hexlet-sicp
 - https://github.com/Hexlet/hexlet-sicp/pull/1664
