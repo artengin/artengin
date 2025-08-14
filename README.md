@@ -12,10 +12,11 @@ I’m a Backend developer with experience in creating web applications and serve
 ### <img src="./assets/laravel-logo.png" height="25"/> laravel/framework
 - https://github.com/laravel/framework/pull/56498
 
-### <img src="./assets/ronasit.png" height="20"/> RonasIT/laravel-entity-generator
-- https://github.com/RonasIT/laravel-entity-generator/pull/169  
+### <img src="./assets/laravel-logo.png" height="25"/> laravelsu/laravel.su
+- https://github.com/laravelsu/laravel.su/pull/285
+- https://github.com/laravelsu/laravel.su/pull/283  
   ...  
-  *[See all PRs](https://github.com/RonasIT/laravel-entity-generator/pulls?q=is:pr+author:artengin+is:closed)*
+  *[See all PRs](https://github.com/laravelsu/laravel.su/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*
 
 ### <img src="./assets/hexlet.png" height="20"/> Hexlet/hexlet-sicp
 - https://github.com/Hexlet/hexlet-sicp/pull/1664
@@ -23,11 +24,7 @@ I’m a Backend developer with experience in creating web applications and serve
   ...  
   *[See all PRs](https://github.com/Hexlet/hexlet-sicp/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*
 
-### <img src="./assets/laravel-logo.png" height="25"/> laravelsu/laravel.su
-- https://github.com/laravelsu/laravel.su/pull/285
-- https://github.com/laravelsu/laravel.su/pull/283  
-  ...  
-  *[See all PRs](https://github.com/laravelsu/laravel.su/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*
+### <img src="./assets/ronasit.png" height="18"/> RonasIT/laravel-entity-generator - *[See all PRs](https://github.com/RonasIT/laravel-entity-generator/pulls?q=is:pr+author:artengin+is:closed)*
 
 ## Other about me
 📚 Reading books is an important part of my life.  
