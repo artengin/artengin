@@ -12,19 +12,16 @@ I’m a Backend developer with experience in creating web applications and serve
 ### <img src="./assets/laravel-logo.png" height="25"/> laravel/framework
 - https://github.com/laravel/framework/pull/56498
 
-### <img src="./assets/laravel-logo.png" height="25"/> laravelsu/laravel.su
-- https://github.com/laravelsu/laravel.su/pull/285
-- https://github.com/laravelsu/laravel.su/pull/283  
+### <img src="./assets/ronasit.png" height="20"/> RonasIT/laravel-entity-generator
+- https://github.com/RonasIT/laravel-entity-generator/pull/170  
   ...  
-  *[See all PRs](https://github.com/laravelsu/laravel.su/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*
+  *[See all PRs](https://github.com/RonasIT/laravel-entity-generator/pulls?q=is:pr+author:artengin+is:closed)*
 
-### <img src="./assets/hexlet.png" height="20"/> Hexlet/hexlet-sicp
-- https://github.com/Hexlet/hexlet-sicp/pull/1664
-- https://github.com/Hexlet/hexlet-sicp/pull/1659  
-  ...  
-  *[See all PRs](https://github.com/Hexlet/hexlet-sicp/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*
+#### <img src="./assets/ronasit.png" height="17"/> RonasIT/laravel-media - *[See all PRs](https://github.com/RonasIT/laravel-media/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*  
+#### <img src="./assets/ronasit.png" height="17"/> RonasIT/laravel-clerk - *[See all PRs](https://github.com/RonasIT/laravel-clerk/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*  
+#### <img src="./assets/laravel-logo.png" height="18"/> laravelsu/laravel.su - *[See all PRs](https://github.com/laravelsu/laravel.su/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*
 
-### <img src="./assets/ronasit.png" height="18"/> RonasIT/laravel-entity-generator - *[See all PRs](https://github.com/RonasIT/laravel-entity-generator/pulls?q=is:pr+author:artengin+is:closed)*
+#### <img src="./assets/hexlet.png" height="18"/> Hexlet/hexlet-sicp - *[See all PRs](https://github.com/Hexlet/hexlet-sicp/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*
 
 ## Other about me
 📚 Reading books is an important part of my life.  
