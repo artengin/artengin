@@ -12,6 +12,9 @@ I’m a Backend developer with experience in creating web applications and serve
 ### <img src="./assets/laravel-logo.png" height="25"/> laravel/framework
 - https://github.com/laravel/framework/pull/56498
 
+### <img src="./assets/laravel-logo.png" height="25"/> laravel/pint
+- https://github.com/laravel/pint/pull/398
+
 ### <img src="./assets/ronasit.png" height="20"/> RonasIT/laravel-entity-generator
 - https://github.com/RonasIT/laravel-entity-generator/pull/170  
   ...  
