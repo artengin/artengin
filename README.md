@@ -10,10 +10,10 @@ I’m a Backend developer with experience in creating web applications and serve
 ![PRs](https://img.shields.io/badge/Merged_PRs-57-blue)  
 
 ### <img src="./assets/laravel-logo.png" height="25"/> laravel/framework
-- https://github.com/laravel/framework/pull/56498
+- https://github.com/laravel/framework/pull/56498 - Fix incorrect quote escaping in env writer.
 
 ### <img src="./assets/laravel-logo.png" height="25"/> laravel/pint
-- https://github.com/laravel/pint/pull/398
+- https://github.com/laravel/pint/pull/398 - Added support boolean shorthand for 'cast_spaces'
 
 ### <img src="./assets/ronasit.png" height="20"/> RonasIT/laravel-entity-generator
 - https://github.com/RonasIT/laravel-entity-generator/pull/170  
