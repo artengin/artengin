@@ -7,7 +7,7 @@ I’m a Backend developer with experience in creating web applications and serve
 
 ## My PRs <img src="./assets/pr-icon.png" height="20"/>  
 
-![PRs](https://img.shields.io/badge/Merged_PRs-57-blue)  
+![PRs](https://img.shields.io/badge/Merged_PRs-58-blue)  
 
 ### <img src="./assets/laravel-logo.png" height="25"/> laravel/framework
 - https://github.com/laravel/framework/pull/56498 - Fix incorrect quote escaping in env writer.
