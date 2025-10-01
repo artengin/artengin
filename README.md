@@ -16,7 +16,7 @@ I’m a Backend developer with experience in creating web applications and serve
 - https://github.com/laravel/pint/pull/398 - Added support boolean shorthand for 'cast_spaces'
 
 ### <img src="./assets/ronasit.png" height="20"/> RonasIT/laravel-entity-generator
-- https://github.com/RonasIT/laravel-entity-generator/pull/167 - Added ability to generate models in sub-folders  
+- https://github.com/RonasIT/laravel-entity-generator/pull/176 - Added ability to generate models in sub-folders
   ...  
   *[See all PRs](https://github.com/RonasIT/laravel-entity-generator/pulls?q=is:pr+author:artengin+is:closed)*
 
