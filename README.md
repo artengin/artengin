@@ -26,6 +26,7 @@ I’m a Backend developer with experience in creating web applications and serve
 <img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-clerk - *[See all PRs](https://github.com/RonasIT/laravel-clerk/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*  
 <img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-media - *[See all PRs](https://github.com/RonasIT/laravel-media/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*  
 <img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-helpers - *[See all PRs](https://github.com/RonasIT/laravel-helpers/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*  
+<img src="./assets/winter.png" height="15"/> wintercms/laravel-config-writer - *[See all PRs](https://github.com/wintercms/laravel-config-writer/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*  
 <img src="./assets/laravel-logo.png" height="16"/> laravelsu/laravel.su - *[See all PRs](https://github.com/laravelsu/laravel.su/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*  
 <img src="./assets/hexlet.png" height="16"/> Hexlet/hexlet-sicp - *[See all PRs](https://github.com/Hexlet/hexlet-sicp/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*
 
