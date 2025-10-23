@@ -15,11 +15,11 @@ I’m a Backend developer with experience in creating web applications and serve
 ### <img src="./assets/laravel-logo.png" height="25"/> laravel/pint
 - https://github.com/laravel/pint/pull/398 - Added support boolean shorthand for 'cast_spaces'
 
-### <img src="./assets/ronasit.png" height="20"/> RonasIT/laravel-entity-generator
-- https://github.com/RonasIT/laravel-entity-generator/pull/176 - Added ability to generate models in sub-folders
-  ...  
-  *[See all PRs](https://github.com/RonasIT/laravel-entity-generator/pulls?q=is:pr+author:artengin+is:closed)*
+### <img src="./assets/laravel-logo.png" height="25"/> laravel/telescope
+- https://github.com/laravel/telescope/pull/1650 - Added a host filter for ClientRequestWatcher
 
+  
+<img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-entity-generator - *[See all PRs](https://github.com/RonasIT/laravel-entity-generator/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*  
 <img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-project-initializator - *[See all PRs](https://github.com/RonasIT/laravel-project-initializator/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*  
 <img src="./assets/ronasit.png" height="15"/> RonasIT/larabuilder - *[See all PRs](https://github.com/RonasIT/larabuilder/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*  
 <img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-telescope-extension - *[See all PRs](https://github.com/RonasIT/laravel-telescope-extension/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*  
