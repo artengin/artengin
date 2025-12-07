@@ -17,6 +17,7 @@ I’m a Backend developer with experience in creating web applications and serve
 
 ### <img src="./assets/laravel-logo.png" height="25"/> laravel/telescope
 - https://github.com/laravel/telescope/pull/1650 - Added a host filter for ClientRequestWatcher
+- https://github.com/laravel/telescope/pull/1661 - Added logic to use setAccessible only before PHP 8.5
 
   
 <img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-entity-generator - *[See all PRs](https://github.com/RonasIT/laravel-entity-generator/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*  
