@@ -10,6 +10,7 @@ I’m a Backend developer with experience in creating web applications and serve
 ![PRs](https://img.shields.io/badge/Merged_PRs-99-blue)  
 
 ### <img src="./assets/laravel-logo.png" height="28"/> Laravel
+- https://github.com/laravel/framework/pull/58061 - Added a new assertFailedDependency assertion.
 - https://github.com/laravel/framework/pull/56498 - Fix incorrect quote escaping in env writer.
 - https://github.com/laravel/pint/pull/398 - Added support boolean shorthand for 'cast_spaces'
 - https://github.com/laravel/telescope/pull/1650 - Added a host filter for ClientRequestWatcher
