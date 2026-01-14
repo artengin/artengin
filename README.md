@@ -7,7 +7,7 @@ I’m a Backend developer with experience in creating web applications and serve
 
 ## My PRs <img src="./assets/pr-icon.png" height="20"/>  
 
-![PRs](https://img.shields.io/badge/Merged_PRs-115-blue)  
+![PRs](https://img.shields.io/badge/Merged_PRs-117-blue)  
 
 ### <img src="./assets/laravel-logo.png" height="28"/> Laravel
 - https://github.com/laravel/framework/pull/58061 - Added a new `assertFailedDependency` assertion.
