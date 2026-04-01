@@ -19,17 +19,17 @@ I’m a Backend developer with experience in creating web applications and serve
 &nbsp;  
 | Repository | PRs |
 |:-----------|:---:|
-|<img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-project-initializator | *[See all PRs](https://github.com/RonasIT/laravel-project-initializator/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*|  
-|<img src="./assets/ronasit.png" height="15"/> RonasIT/larabuilder | *[See all PRs](https://github.com/RonasIT/larabuilder/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*|  
-|<img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-entity-generator | *[See all PRs](https://github.com/RonasIT/laravel-entity-generator/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*|  
-|<img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-helpers | *[See all PRs](https://github.com/RonasIT/laravel-helpers/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*|  
-|<img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-clerk | *[See all PRs](https://github.com/RonasIT/laravel-clerk/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*|  
-|<img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-media | *[See all PRs](https://github.com/RonasIT/laravel-media/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*|  
-|<img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-project-create | *[See all PRs](https://github.com/RonasIT/laravel-project-create/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*|  
-|<img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-telescope-extension | *[See all PRs](https://github.com/RonasIT/laravel-telescope-extension/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*|  
-|<img src="./assets/winter.png" height="15"/> wintercms/laravel-config-writer | *[See all PRs](https://github.com/wintercms/laravel-config-writer/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*|  
-|<img src="./assets/laravel-logo.png" height="16"/> laravelsu/laravel.su | *[See all PRs](https://github.com/laravelsu/laravel.su/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*|  
-|<img src="./assets/hexlet.png" height="16"/> Hexlet/hexlet-sicp | *[See all PRs](https://github.com/Hexlet/hexlet-sicp/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)*|
+|<img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-project-initializator | [all PRs](https://github.com/RonasIT/laravel-project-initializator/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)|  
+|<img src="./assets/ronasit.png" height="15"/> RonasIT/larabuilder | [all PRs](https://github.com/RonasIT/larabuilder/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)|  
+|<img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-entity-generator | [all PRs](https://github.com/RonasIT/laravel-entity-generator/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)|  
+|<img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-helpers | [all PRs](https://github.com/RonasIT/laravel-helpers/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)|  
+|<img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-clerk | [all PRs](https://github.com/RonasIT/laravel-clerk/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)|  
+|<img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-media | [all PRs](https://github.com/RonasIT/laravel-media/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)|  
+|<img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-project-create | [all PRs](https://github.com/RonasIT/laravel-project-create/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)|  
+|<img src="./assets/ronasit.png" height="15"/> RonasIT/laravel-telescope-extension | [all PRs](https://github.com/RonasIT/laravel-telescope-extension/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)|  
+|<img src="./assets/winter.png" height="15"/> wintercms/laravel-config-writer | [all PRs](https://github.com/wintercms/laravel-config-writer/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)|  
+|<img src="./assets/laravel-logo.png" height="16"/> laravelsu/laravel.su | [all PRs](https://github.com/laravelsu/laravel.su/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)|  
+|<img src="./assets/hexlet.png" height="16"/> Hexlet/hexlet-sicp | [all PRs](https://github.com/Hexlet/hexlet-sicp/pulls?q=is%3Apr+author%3Aartengin+is%3Aclosed)|
 
 ## Other about me
 📚 Reading books is an important part of my life.  
